@@ -7,9 +7,19 @@ export default defineConfig({
   base: "/",
   publicDir: "../public",
   build: {
-    outDir: "../dist"
+    outDir: "../dist",
+      rollupOptions: {
+      input: {
+        'main':        path.resolve(__dirname, 'pages/index.html'),
+        'articles':    path.resolve(__dirname, 'pages/articles.html'),
+        'projects':    path.resolve(__dirname, 'pages/projects.html'),
+        'undead-west': path.resolve(__dirname, 'pages/projects/undead-west.html'),
+      },
+    },
   },
   resolve: {
-    alias: { "/src": path.resolve(process.cwd(), "src") }
+    alias: { 
+      "/src": path.resolve(process.cwd(), "src"),
+    }
   },
 })
