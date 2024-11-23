@@ -8,7 +8,8 @@ export default defineConfig({
   publicDir: "../public",
   build: {
     outDir: "../dist",
-      rollupOptions: {
+    emptyOutDir: true,
+    rollupOptions: {
       input: {
         'main':        path.resolve(__dirname, 'pages/index.html'),
         'articles':    path.resolve(__dirname, 'pages/articles/index.html'),
@@ -19,7 +20,8 @@ export default defineConfig({
   },
   resolve: {
     alias: { 
-      "/src": path.resolve(process.cwd(), "src"),
+      "/scripts": path.resolve(process.cwd(), "scripts"),
+      "/styles": path.resolve(process.cwd(), "styles"),
     }
   },
 })
