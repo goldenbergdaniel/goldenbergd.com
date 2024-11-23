@@ -11,9 +11,9 @@ export default defineConfig({
       rollupOptions: {
       input: {
         'main':        path.resolve(__dirname, 'pages/index.html'),
-        'articles':    path.resolve(__dirname, 'pages/articles.html'),
-        'projects':    path.resolve(__dirname, 'pages/projects.html'),
-        'undead-west': path.resolve(__dirname, 'pages/projects/undead-west.html'),
+        'articles':    path.resolve(__dirname, 'pages/articles/index.html'),
+        'projects':    path.resolve(__dirname, 'pages/projects/index.html'),
+        'undead-west': path.resolve(__dirname, 'pages/projects/undead-west/index.html'),
       },
     },
   },
