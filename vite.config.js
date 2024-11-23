@@ -13,6 +13,7 @@ export default defineConfig({
       input: {
         'main':        path.resolve(__dirname, 'pages/index.html'),
         'articles':    path.resolve(__dirname, 'pages/articles/index.html'),
+        'hello-world': path.resolve(__dirname, 'pages/articles/hello-world/index.html'),
         'projects':    path.resolve(__dirname, 'pages/projects/index.html'),
         'undead-west': path.resolve(__dirname, 'pages/projects/undead-west/index.html'),
       },
