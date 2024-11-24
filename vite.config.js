@@ -21,6 +21,7 @@ export default defineConfig({
   },
   resolve: {
     alias: { 
+      "/public": path.resolve(process.cwd(), "public"),
       "/scripts": path.resolve(process.cwd(), "scripts"),
       "/styles": path.resolve(process.cwd(), "styles"),
     }

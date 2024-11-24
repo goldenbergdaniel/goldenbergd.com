@@ -1,5 +1,12 @@
+@font-face {
+  font-family: "Fira Mono";
+  src: url("/public/FiraMono-Regular.ttf") format("ttf");
+  font-weight: normal;
+  font-style: normal;
+}
+
 :root {
-  font-family: "Fira Mono", sans-serif;
+  font-family: "Fira Mono", "Liberation Mono", monospace;
   line-height: 1.5;
   font-weight: 400;
 
@@ -12,6 +19,14 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* border: 1px dashed blue; */
+nav {
+  max-height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 body {
   margin: 0;
   display: flex;
@@ -22,22 +37,74 @@ body {
 }
 
 h1 {
-  font-size: 3em;
+  font-size: 2em;
+}
+
+h2 {
+  font-size: 1.5em;
+}
+
+#content {
+  text-align: left;
+}
+#content p {
+  font-family: "Liberation Sans", sans-serif;
+  font-size: 1.2em;
+  line-height: 2em;
+  max-width: 700px;
+}
+
+#article-list {
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+}
+
+.date {
+  color: rgb(170, 170, 170);
+}
+
+.article-entry {
+  margin-bottom: 10px;
+}
+.article-entry a {
+  text-decoration: none;
+  color: rgb(240, 240, 240);
+}
+.article-entry a:hover {
+  text-decoration: underline;
+}
+
+ul {
+  list-style: none;
+}
+
+a {
+  /* color: rgb(209, 178, 119); */
+  color: rgb(170, 170, 170);
+  text-decoration: none;
+}
+a:hover, a:visited, a:active {
+  text-decoration: underline;
 }
 
 .navbar-links {
+  /* border: 1px dashed green; */
   display: flex;
-  margin-top: 50px;
+  justify-content: center;
+  align-items: center;
 }
 .navbar-links li {
-  padding: 10px;
+  padding-right: 20px;
 }
 
 #app {
+  /* border: 1px dashed red; */
   max-width: 1280px;
-  margin: 0 auto;
+  margin: 100 auto;
   padding: 2rem;
   text-align: center;
+  align-items: center;
 }
 
 .logo {
@@ -50,10 +117,6 @@ h1 {
   filter: drop-shadow(0 0 2em #646cffaa);
 }
 
-.card {
-  padding: 2em;
-}
-
 button {
   border-radius: 8px;
   border: 1px solid transparent;
@@ -63,17 +126,8 @@ button {
   font-family: inherit;
   background-color: #1a1a1a;
   cursor: pointer;
-  transition: border-color 0.1s;
+  transition: border-color 0.2s;
 }
 button:hover {
   border-color: rgb(240, 240, 240);
 }
-
-ul {
-  list-style: none;
-}
-
-a, a:hover, a:visited, a:active {
-  color: inherit;
-}
-
