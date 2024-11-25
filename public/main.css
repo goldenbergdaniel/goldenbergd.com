@@ -86,7 +86,7 @@ nav {
   font-weight: 300;
 }
 #content p {
-  font-family: "Roboto", sans-serif;
+  font-family: "Fira Sans", sans-serif;
   font-weight: 400;
   font-size: 1.2rem;
   line-height: 2rem;
@@ -94,7 +94,7 @@ nav {
 }
 
 #content-home p {
-  font-family: "Roboto", sans-serif;
+  font-family: "Fira Sans", sans-serif;
   font-weight: 400;
   font-size: 1.2rem;
   text-align: center;

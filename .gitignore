@@ -8,6 +8,8 @@ dist
 dist-ssr
 *.local
 
+generator/out
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
