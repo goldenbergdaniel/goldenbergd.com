@@ -1,22 +1,43 @@
 @font-face {
   font-family: "Fira Mono";
-  src: url("/public/FiraMono-Regular.ttf") format("ttf");
+  src: url("/public/FiraMono-Medium.ttf") format("ttf");
   font-weight: normal;
   font-style: normal;
 }
 
 :root {
+  --background-color-1: rgb(15, 15, 15);
+  --background-color-2: rgb(45, 45, 45);
+  --foreground-color-1: rgb(240, 240, 240);
+  --foreground-color-2: rgb(170, 170, 170);
+  --accent-color:       rgb(224, 188, 69);
+
   font-family: "Fira Mono", "Liberation Mono", monospace;
   line-height: 1.5;
   font-weight: 400;
 
   color-scheme: light dark;
-  color: rgb(240, 240, 240);
-  background-color: rgb(11, 11, 11);
+  color: var(--foreground-color-1);
+  background-color: var(--background-color-1);
 
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.heading {
+  font-size: 1.5em;
+  font-weight: 700;
+  color: var(--accent-color);
+}
+.heading:hover {
+  text-decoration: none;
+}
+.heading a {
+  color: inherit;
+}
+.heading a:hover {
+  text-decoration: inherit;
 }
 
 /* border: 1px dashed blue; */
@@ -25,67 +46,6 @@ nav {
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-body {
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
-}
-
-h1 {
-  font-size: 2em;
-}
-
-h2 {
-  font-size: 1.5em;
-}
-
-#content {
-  text-align: left;
-}
-#content p {
-  font-family: "Liberation Sans", sans-serif;
-  font-size: 1.2em;
-  line-height: 2em;
-  max-width: 700px;
-}
-
-#article-list {
-  text-align: left;
-  display: flex;
-  flex-direction: column;
-}
-
-.date {
-  color: rgb(170, 170, 170);
-}
-
-.article-entry {
-  margin-bottom: 10px;
-}
-.article-entry a {
-  text-decoration: none;
-  color: rgb(240, 240, 240);
-}
-.article-entry a:hover {
-  text-decoration: underline;
-}
-
-ul {
-  list-style: none;
-}
-
-a {
-  /* color: rgb(209, 178, 119); */
-  color: rgb(170, 170, 170);
-  text-decoration: none;
-}
-a:hover, a:visited, a:active {
-  text-decoration: underline;
 }
 
 .navbar-links {
@@ -97,6 +57,80 @@ a:hover, a:visited, a:active {
 .navbar-links li {
   padding-right: 20px;
 }
+.navbar-links #current {
+  text-decoration: underline;
+  color: var(--accent-color);
+}
+
+body {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+#content {
+  text-align: left;
+}
+#content h4 {
+  text-align: center;
+  font-size: 1.2em;
+  font-weight: 500;
+  line-height: 2em;
+  max-width: 600px;
+}
+#content p {
+  /* font-family: "Liberation Sans", sans-serif; */
+  font-size: 1.2em;
+  line-height: 2em;
+  max-width: 700px;
+}
+
+#content-list {
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+}
+
+#avatar {
+  display: flex;
+  justify-content: center;
+}
+#avatar img {
+  margin: 10px 0;
+  max-width: 150px;
+  border-radius: 50%;
+}
+
+.date {
+  color: var(--foreground-color-2);
+}
+
+.content-entry {
+  font-size: 1rem;
+  margin-bottom: 10px;
+}
+.content-entry a {
+  text-decoration: none;
+  color: rgb(240, 240, 240);
+}
+.content-entry a:hover {
+  text-decoration: underline;
+}
+
+ul {
+  list-style: none;
+}
+
+a {
+  color: var(--foreground-color-2);
+  text-decoration: none;
+}
+a:hover, a:visited, a:active {
+  text-decoration: underline;
+}
 
 #app {
   /* border: 1px dashed red; */
@@ -107,7 +141,7 @@ a:hover, a:visited, a:active {
   align-items: center;
 }
 
-.logo {
+/* .logo {
   height: 6em;
   padding: 1.5em;
   will-change: filter;
@@ -115,9 +149,9 @@ a:hover, a:visited, a:active {
 }
 .logo:hover {
   filter: drop-shadow(0 0 2em #646cffaa);
-}
+} */
 
-button {
+/* button {
   border-radius: 8px;
   border: 1px solid transparent;
   padding: 0.6em 1.2em;
@@ -129,5 +163,5 @@ button {
   transition: border-color 0.2s;
 }
 button:hover {
-  border-color: rgb(240, 240, 240);
-}
+  border-color: var(--foreground-color-1);
+} */
