@@ -1,34 +1,37 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/DanielGoldenberg.png" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8"/>
+    <link rel="icon" type="image" href="/DanielGoldenberg.png"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="stylesheet" href="/public/main.css"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Mono:wght@400;500;700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
     <title>Daniel Goldenberg</title>
   </head>
   <body>
     <div id="app">
+      <div id="avatar">
+        <a href="/"><img src="/DanielGoldenberg.png" alt="daniel goldenberg"></a>
+      </div>
       <h1 class="heading"><a href="/">DANIEL GOLDENBERG</a></h1>
       <nav>
         <ul class="navbar-links">
           <li><a href="/" id="current">home</a></li>
-          <li><a href="/articles/">articles</a></li>
-          <li><a href="/projects/">projects</a></li>
-          <li><a href="/links/">links</a></li>
+          <li><a href="/articles">articles</a></li>
+          <li><a href="/projects">projects</a></li>
+          <li><a href="/links">links</a></li>
         </ul>
       </nav>
-      <div id="content">
-        <div id="avatar">
-          <img src="/DanielGoldenberg.png" alt="daniel goldenberg">
-        </div>
-        <h4>Hello, I'm Daniel. I'm a programmer focused on building games, tools, and hardware applications. You have just stumbled onto my website.</h4>
+      <div id="content-home">
+        <p>Hello, I'm Daniel. I'm a programmer focused on building tools, games, and hardware applications. And you've just stumbled onto my website.</p>
       </div>
     </div>
     <div>
       <div class="title">
       </div>
     </div>
-    <script type="module" src="/scripts/main.ts"></script>
   </body>
+  <script type="module" src="/scripts/main.ts"></script>
 </html>
