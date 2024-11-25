@@ -1,6 +1,6 @@
 // Just leaving this here for future reference
 
-function setupCounter(element: HTMLButtonElement)
+function SetupCounter(element: HTMLButtonElement)
 {
   let counter = 0
   
@@ -17,5 +17,5 @@ function setupCounter(element: HTMLButtonElement)
 let counter = document.querySelector<HTMLButtonElement>("#counter")!
 if (counter)
 {
-  setupCounter(counter)
+  SetupCounter(counter)
 }
