@@ -1,13 +1,8 @@
 :root {
-  --background-color-1: #151513;
-  --background-color-2: rgb(45, 45, 45);
-  --foreground-color-1: #d3c4a5;
-  --foreground-color-2: #aa9d84;
+  --background-color-1: #0c0c0c;
+  --foreground-color-1: #cfcfcf;
+  --foreground-color-2: #ababab;
   --accent-blue:        #72abcc;
-  --accent-green:       #9C9E42;
-  --accent-orange:      #e9914a;
-  --accent-red:         #d44e3f;
-  --accent-yellow:      rgb(224, 188, 69);
 
   line-height: 1.5;
   font-weight: 400;
@@ -48,6 +43,7 @@ body {
   border-radius: 50%;
 }
 #avatar .heading {
+  color: var(--foreground-color-1);
   line-height: 0;
 }
 
@@ -62,13 +58,13 @@ body {
   padding: 0 10px;
 }
 .navbar-links #current {
-  color: var(--accent-yellow);
+  color: var(--accent-blue);
 }
 
 .heading {
   font-size: 1.5rem;
   font-weight: 700;
-  color: var(--accent-yellow);
+  color: var(--accent-blue);
 }
 .heading:hover {
   text-decoration: none;
@@ -84,7 +80,7 @@ body {
   text-align: left;
 }
 #content h1 {
-  color: var(--accent-yellow);
+  color: var(--accent-blue);
 }
 #content p {
   font-family: "Fira Sans", sans-serif;
@@ -110,7 +106,7 @@ body {
 }
 
 .entry-name {
-  color: var(--accent-yellow);
+  color: var(--accent-blue);
 }
 
 .entry-date {
