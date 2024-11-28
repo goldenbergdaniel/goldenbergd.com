@@ -40,14 +40,23 @@ body {
   justify-content: center;
   align-items: center;
   margin: 0;
+  /* border: 1px dashed red; */
 }
 #avatar img {
   max-width: 70px;
   border-radius: 50%;
 }
-#avatar .heading {
+#avatar h1 {
   color: var(--color-fg-1);
   line-height: 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+#avatar a {
+  color: inherit;
+}
+#avatar a:hover {
+  text-decoration: inherit;
 }
 
 .navbar-links {
@@ -64,21 +73,6 @@ body {
   color: var(--color-accent);
 }
 
-.heading {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: var(--color-accent);
-}
-.heading:hover {
-  text-decoration: none;
-}
-.heading a {
-  color: inherit;
-}
-.heading a:hover {
-  text-decoration: inherit;
-}
-
 #content {
   text-align: left;
 }
@@ -86,9 +80,10 @@ body {
   font-family: var(--font-sans);
   color: var(--color-accent);
   font-size: 2rem;
-  line-height: 1rem;
+  margin-top: 30px;
 }
 #content h2 {
+  line-height: 1rem;
   font-family: var(--font-sans);
   color: var(--color-fg-2);
   font-weight: 400;
@@ -107,15 +102,6 @@ body {
   font-size: 1.2rem;
   line-height: 2rem;
   max-width: 700px;
-}
-
-#content-home p {
-  font-family: var(--font-sans);
-  font-weight: 400;
-  font-size: 1.2rem;
-  line-height: 2rem;
-  max-width: 700px;
-  text-align: center;
 }
 
 #content pre {
