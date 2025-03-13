@@ -89,10 +89,16 @@ body {
   font-size: 1.5rem;
   line-height: 2rem;
 }
+#content h2 a {
+  font-family: var(--font-sans);
+  color: var(--color-accent);
+  font-size: 1.5rem;
+  line-height: 2rem;
+}
 #content h3 {
   line-height: 1rem;
   font-family: var(--font-sans);
-  color: var(--color-fg-2);
+  color: var(--color-fg-1);
   font-weight: 400;
   font-size: 1.3rem;
   line-height: 2rem;
@@ -100,13 +106,13 @@ body {
 #content h4 {
   color: var(--color-fg-2);
   font-weight: 400;
-  font-size: 1rem;
-  line-height: 2rem;
+  font-size: 0.9rem;
+  line-height: 1rem;
 }
 #content p {
   font-family: var(--font-sans);
   font-weight: 400;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   line-height: 2rem;
   max-width: 800px;
 }
