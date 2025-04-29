@@ -13,7 +13,7 @@
   <body>
     <div id="app">
       <div id="avatar">
-        <a href="/"><img src="/daniel_goldenberg.png" alt="daniel goldenberg"></a>
+        <a href="/"><img src="/public/daniel_goldenberg.png" alt="daniel goldenberg"></a>
         <h1><a href="/">DANIEL GOLDENBERG</a></h1>
       </div>
       <nav>
@@ -28,7 +28,7 @@
         <h1>Odin for C Programmers</h1>
         <h3>A primer on the Odin programming language for C developers.</h3>
         <h4>03.02.2025</h4>
-        <p>Hello, world! I think I'll use this place to share technical guides, talk about cool things I've discovered, and just speak into the endless void.</p>
+        <p>This post is meant to be a rundown of some of the part of Odin that might feel alien to a C developer. I will update this list periodically.</p>
         <pre><code>
 package main
 
@@ -39,11 +39,45 @@ main :: proc()
   fmt.println("Hellope!")
 }
         </code></pre>
-        <h2><a href="#slices">Slices #</a></h2>
-        <p>A slice in Odin, denoted by <code>[]T</code>, is simply a struct containing a pointer and an <code>int</code> for length.</p>
+        <h2><a href="#slices-and-strings">Slices & Strings #</a></h2>
+        <p>A slice in Odin, denoted by <code>[]T</code>, is simply a struct containing a pointer and an <code>int</code> for length. Here's its layout in memory, taken directly from the Odin runtime.</p>
+        <pre><code>
+Raw_Slice :: struct
+{
+  data: rawptr,
+  len:  int,
+}
+
+Raw_String :: struct
+{
+  data: [^]u8,
+  len:  int,
+}
+
+Raw_Cstring :: struct
+{
+  data: [^]u8,
+}
+        </code></pre>
+        <h2><a href="#unions">Unions #</a></h2>
+        <pre><code>
+My_Union :: union
+{
+  string,
+  int,
+  f32,
+}
+
+My_Raw_Union :: struct #raw_union
+{
+  str: string,
+  num: int,
+  flt: f32,
+}
+        </code></pre>
+        <h2><a href="#bitsets-and-bitfields">Bit Sets & Bit Fields #</a></h2>
       </div>
     </div>
-    <script type="module" src="/scripts/main.ts"></script>
+    <script type="module" src="/scripts/main.js"></script>
   </body>
 </html>
-
