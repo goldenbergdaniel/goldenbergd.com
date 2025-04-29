@@ -4,9 +4,8 @@ rm -rf dist
 
 if [[ $1 == "clean" ]]; then exit 0; fi;
 
-rm -rf dist
 mkdir dist
-cp -r pages/* public dist
+cp -r pages/* assets dist
 
 bin/esbuild scripts/main.js --bundle --outfile=dist/scripts/main.js --minify --target=es6
 
