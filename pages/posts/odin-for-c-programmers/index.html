@@ -28,7 +28,7 @@
         <h1>Odin for C Programmers</h1>
         <h3>A primer on the Odin programming language for C developers.</h3>
         <h4>03.02.2025</h4>
-        <p>This post is meant to be a rundown of some of the part of Odin that might feel alien to a C developer. I will update this list periodically.</p>
+        <p>This post is meant to be a rundown of some of the aspects of Odin that may feel alien to a C developer. I will update this list periodically.</p>
         <pre><code>
 package main
 
@@ -39,7 +39,7 @@ main :: proc()
   fmt.println("Hellope!")
 }
         </code></pre>
-        <h2><a href="#slices-and-strings">Slices & Strings #</a></h2>
+        <h2 id="slices-and-strings"><a href="#slices-and-strings">Slices & Strings #</a></h2>
         <p>A slice in Odin, denoted by <code>[]T</code>, is simply a struct containing a pointer and an <code>int</code> for length. Here's its layout in memory, taken directly from the Odin runtime.</p>
         <pre><code>
 Raw_Slice :: struct
@@ -59,7 +59,7 @@ Raw_Cstring :: struct
   data: [^]u8,
 }
         </code></pre>
-        <h2><a href="#unions">Unions #</a></h2>
+        <h2 id="unions"><a href="#unions">Unions #</a></h2>
         <pre><code>
 My_Union :: union
 {
@@ -75,7 +75,7 @@ My_Raw_Union :: struct #raw_union
   flt: f32,
 }
         </code></pre>
-        <h2><a href="#bitsets-and-bitfields">Bit Sets & Bit Fields #</a></h2>
+        <h2 id="bitsets-and-bitfields"><a href="#bitsets-and-bitfields">Bit Sets & Bit Fields #</a></h2>
       </div>
     </div>
     <script type="module" src="/scripts/main.js"></script>

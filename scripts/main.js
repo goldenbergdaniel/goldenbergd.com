@@ -4,14 +4,14 @@ function SetupCounter(element)
 {
   let counter = 0
   
-  function setCounter(count)
+  function SetCounter(count)
   {
     counter = count
     element.innerHTML = `count is ${counter}`
   }
 
-  element.addEventListener("click", () => setCounter(counter + 1))
-  setCounter(0)
+  element.addEventListener("click", () => SetCounter(counter + 1))
+  SetCounter(0)
 }
 
 let counter = document.querySelector("#counter")
@@ -27,22 +27,35 @@ function HighlightKeywordsInCode()
 {
   // Define the keywords and their corresponding colors
   const keywords = [
-    { keyword: "package"},
-    { keyword: "import"},
-    { keyword: "proc"},
-    { keyword: "if"},
-    { keyword: "for"},
-    { keyword: "return"},
-    { keyword: "struct"},
-    { keyword: "#include"},
-  ];
+    {keyword: "package"},
+    {keyword: "import"},
+    {keyword: "proc"},
+    {keyword: "struct"},
+    {keyword: "union"},
+    {keyword: "enum"},
+    {keyword: "switch"},
+    {keyword: "if"},
+    {keyword: "do"},
+    {keyword: "for"},
+    {keyword: "while"},
+    {keyword: "break"},
+    {keyword: "continue"},
+    {keyword: "return"},
+    {keyword: "or_break"},
+    {keyword: "or_continue"},
+    {keyword: "or_return"},
+    {keyword: "or_else"},
+    {keyword: "defer"},
+    {keyword: "#include"},
+    {keyword: "#define"},
+  ]
 
   // Get all code elements
   const codeElements = document.getElementsByTagName("code")
 
   // Process each code element
   Array.from(codeElements).forEach((codeElement) => {
-    let content = codeElement.innerHTML;
+    let content = codeElement.innerHTML
 
     // Escape HTML special characters first to prevent XSS and breaking HTML
     // content = escapeHtml(content);
@@ -61,12 +74,12 @@ function HighlightKeywordsInCode()
 
       if (matchedKeyword)
       {
-        return `<span style="color: ${COLOR}">${word}</span>`;
+        return `<span style="color: ${COLOR}">${word}</span>`
       }
 
       return word
 
-    }).join('');
+    }).join("")
 
     // Update the code element with highlighted content
     codeElement.innerHTML = highlightedContent
