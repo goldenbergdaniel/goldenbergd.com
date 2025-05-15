@@ -3,6 +3,8 @@
   <head>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="og:title" content="{title}">
+    <meta name="og:description" content="{caption}">
     <link rel="icon" type="image" href="/assets/daniel_goldenberg.png"/>
     <link rel="stylesheet" href="/assets/main.css"/>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -11,7 +13,7 @@
     <title>{title}</title>
   </head>
   <body>
-    <div id="app">
+    <header>
       <div id="avatar">
         <a href="/"><img src="/assets/daniel_goldenberg.png" alt="daniel goldenberg"></a>
         <h1><a href="/">DANIEL GOLDENBERG</a></h1>
@@ -24,16 +26,16 @@
           <li><a href="/links">links</a></li>
         </ul>
       </nav>
-      <div id="content">
-        <h1>{title}</h1>
-        <h3>{caption}</h3>
-        <h4>{date}</h4>
+    </header>
+    <main>
+      <h1>{title}</h1>
+      <h3>{caption}</h3>
+      <h4>{date}</h4>
 {body}
-      </div>
-    </div>
+    </main>
     <footer>
       © {copyright} Daniel Goldenberg
     </footer>
-    <script type="module" src="/scripts/main.js"></script>
+    <script type="module" src="/assets/main.js"></script>
   </body>
 </html>

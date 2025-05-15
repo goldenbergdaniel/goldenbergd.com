@@ -1,22 +1,25 @@
 package main
 
 import "core:fmt"
+import "core:slice"
 import "core:strings"
-import "core:os"
+import os "core:os/os2"
+import "core:path/filepath"
 
 COPYRIGHT :: "2024-2025"
 
-TEMPLATE_PATH :: "generator/template.html"
-CONTENT_PATH  :: "generator/content.md"
+PATH_TO_INPUT  :: "content/"
+PATH_TO_OUTPUT :: "pages/posts/"
 
 main :: proc()
 {
-  template_data := make([]byte, 8 << 10, context.allocator)
-  output_builder := strings.builder_make(context.allocator)
+  context.allocator = context.temp_allocator
+  defer free_all(context.temp_allocator)
 
   // - Read template.html ---
+  template_data := make([]byte, 4 << 10, context.allocator)
   {
-    template_fd, template_open_err := os.open(TEMPLATE_PATH, os.O_RDONLY)
+    template_fd, template_open_err := os.open("generator/template.html", {.Read})
     if template_open_err != nil
     {
       fmt.eprintln("Error opening template.html!", template_open_err)
@@ -33,107 +36,143 @@ main :: proc()
     template_data = template_data[:template_len]
   }
 
-  // - Read content.md and write output ---
+  post_files, posts_rd_err := os.read_all_directory_by_path(PATH_TO_INPUT, context.allocator)
+  if posts_rd_err != nil
   {
-    content_fd, content_open_err := os.open(CONTENT_PATH, os.O_RDONLY)
-    if content_open_err != nil
-    {
-      fmt.eprintln("Error opening content.md!", content_open_err)
-      os.exit(1)
-    }
-
-    content_data := make([]byte, 8 << 10, context.allocator)
-
-    content_len, content_rd_err := os.read(content_fd, content_data)
-    if content_open_err != nil
-    {
-      fmt.eprintln("Error reading content.md!", content_rd_err)
-      os.exit(1)
-    }
-
-    content_parser: MD_Parser
-    content_parser.data = cast(string) content_data
-
-    content_title, _ := md_read_element(&content_parser)
-    content_caption, _ := md_read_element(&content_parser)
-    content_date, _ := md_read_element(&content_parser)
-    content_number := "1"
-
-    for idx := 0; idx < len(template_data); idx += 1
-    {
-      char := template_data[idx]
-
-      if char != '{' && char != '}'
-      {
-        strings.write_byte(&output_builder, char)
-      }
-
-      if char == '{'
-      {
-        idx += 1
-        placeholder_len := strings.index_byte(string(template_data[idx:]), '}')
-        placeholder_name := cast(string) template_data[idx:idx+placeholder_len]
-        switch placeholder_name
-        {
-        case "title": 
-          strings.write_string(&output_builder, content_title)
-        case "caption": 
-          strings.write_string(&output_builder, content_caption)
-        case "date": 
-          strings.write_string(&output_builder, content_date)
-        case "number": 
-          strings.write_string(&output_builder, content_number)
-        case "copyright": 
-          strings.write_string(&output_builder, COPYRIGHT)
-        case "body":
-          body_loop: for
-          {
-            element, kind := md_read_element(&content_parser)
-            #partial switch kind
-            {
-              case .NIL:
-                idx += 1
-                break body_loop
-              case .BLANK:
-                continue body_loop
-              case .HEADING: 
-                write_heading(&output_builder, element)
-              case .PARAGRAPH:
-                write_paragraph(&output_builder, element)
-              case .CODE_BLOCK: 
-                write_code_block(&output_builder, element)
-            }
-          }
-        }
-
-        idx += placeholder_len
-      }
-    }
+    fmt.eprintln("Error reading content directory!", posts_rd_err)
+    os.exit(1)
   }
 
-  // - Dump output to file ---
+  // - Sort posts by date ---
   {
-    output_open_flags := os.O_CREATE | os.O_TRUNC | os.O_RDWR
-    output_fd, output_open_err := os.open("output.html", output_open_flags, 0o644)
-    if output_open_err != nil
+    parser: MD_Parser
+    parser.data = {}
+    
+    slice.sort_by(post_files, proc(i, j: os.File_Info) -> bool {
+      return strings.compare(i.name, j.name) == -1
+    })
+  }
+
+  file_idx: int
+  for file_info in post_files
+  {
+    if len(file_info.name) < 4 do continue
+    if strings.compare(file_info.name[len(file_info.name)-3:], ".md") != 0 do continue
+
+    output_builder := strings.builder_make(context.allocator)
+    content_entry_name := file_info.name[:len(file_info.name)-3]
+    defer file_idx += 1
+
+    // - Read file and write output ---
     {
-      fmt.eprintln("Error opening output file!", output_open_err)
-      os.exit(1)
+      path_to_file := strings.concatenate({PATH_TO_INPUT, file_info.name}) 
+      content_fd, content_open_err := os.open(path_to_file, {.Read})
+      defer os.close(content_fd)
+      if content_open_err != nil
+      {
+        fmt.eprintln("Error opening content.md!", content_open_err)
+        os.exit(1)
+      }
+
+      content_data := make([]byte, 8 << 10)
+
+      content_len, posts_rd_err := os.read(content_fd, content_data)
+      if content_open_err != nil
+      {
+        fmt.eprintln("Error reading content.md!", posts_rd_err)
+        os.exit(1)
+      }
+
+      content_parser: MD_Parser
+      content_parser.data = cast(string) content_data
+
+      content_title, _ := md_read_element(&content_parser)
+      content_caption, _ := md_read_element(&content_parser)
+      content_date, _ := md_read_element(&content_parser)
+      content_idx := fmt.tprintf("%i", file_idx)
+
+      for idx := 0; idx < len(template_data); idx += 1
+      {
+        char := template_data[idx]
+
+        if char != '{' && char != '}'
+        {
+          strings.write_byte(&output_builder, char)
+        }
+
+        if char == '{'
+        {
+          idx += 1
+          placeholder_len := strings.index_byte(string(template_data[idx:]), '}')
+          placeholder_name := cast(string) template_data[idx:idx+placeholder_len]
+          switch placeholder_name
+          {
+          case "title": 
+            strings.write_string(&output_builder, content_title)
+          case "caption": 
+            strings.write_string(&output_builder, content_caption)
+          case "date": 
+            strings.write_string(&output_builder, content_date)
+          case "number": 
+            strings.write_string(&output_builder, content_idx)
+          case "copyright": 
+            strings.write_string(&output_builder, COPYRIGHT)
+          case "body":
+            body_loop: for
+            {
+              element, kind := md_read_element(&content_parser)
+              #partial switch kind
+              {
+                case .NIL:
+                  idx += 1
+                  break body_loop
+                case .BLANK:
+                  continue body_loop
+                case .HEADING: 
+                  write_heading(&output_builder, element)
+                case .PARAGRAPH:
+                  write_paragraph(&output_builder, element)
+                case .CODE_BLOCK: 
+                  write_code_block(&output_builder, element)
+              }
+            }
+          }
+
+          idx += placeholder_len
+        }
+      }
     }
 
-    output_bytes := transmute([]byte) strings.to_string(output_builder)
-    output_written, output_wr_err := os.write(output_fd, output_bytes)
-    if output_wr_err != nil
+    // - Dump output to file ---
     {
-      fmt.eprintln("Error writing output file!", output_wr_err)
-      os.exit(1)
+      output_dir_path := strings.concatenate({PATH_TO_OUTPUT, content_entry_name, "/"})
+      os.make_directory("output/")
+      os.make_directory(output_dir_path)
+      
+      output_path := strings.concatenate({output_dir_path, "index.html"})
+      output_open_flags := os.File_Flags{.Create, .Trunc, .Read, .Write}
+      output_fd, output_open_err := os.open(output_path, output_open_flags, 0o644)
+      defer os.close(output_fd)
+      if output_open_err != nil
+      {
+        fmt.eprintln("Error opening output file!", output_open_err)
+        os.exit(1)
+      }
+
+      output_bytes := transmute([]byte) strings.to_string(output_builder)
+      output_written, output_wr_err := os.write(output_fd, output_bytes)
+      if output_wr_err != nil
+      {
+        fmt.eprintln("Error writing output file!", output_wr_err)
+        os.exit(1)
+      }
     }
   }
 }
 
 write_heading :: proc(builder: ^strings.Builder, content: string)
 {
-  strings.write_string(builder, "        <h2 id=\"")
+  strings.write_string(builder, "      <h2 id=\"")
   strings.write_string(builder, hyphenate_string(content))
   strings.write_string(builder, "\">")
   strings.write_string(builder, content)
@@ -144,7 +183,7 @@ write_heading :: proc(builder: ^strings.Builder, content: string)
 
 write_paragraph :: proc(builder: ^strings.Builder, content: string)
 {
-  strings.write_string(builder, "        <p>")
+  strings.write_string(builder, "      <p>")
 
   for idx := 0; idx < len(content); idx += 1
   {
@@ -159,11 +198,17 @@ write_paragraph :: proc(builder: ^strings.Builder, content: string)
       strings.write_string(builder, content[idx:idx+token_len])
       strings.write_string(builder, "</code>")
     }
-    else if content[idx] == '*' && content[idx+1] == '*' && content[idx+2] == '*'
+    else if len(content[idx:]) > 2 && strings.compare(content[idx:idx+3], "***") == 0
     {
-      // - Bold and italic ---
+      // - Italic bold ---
+      idx += 3
+      token_len = strings.index_byte(string(content[idx:]), '*')
+      strings.write_string(builder, "<strong><em>")
+      strings.write_string(builder, content[idx:idx+token_len])
+      strings.write_string(builder, "</em></strong>")
+      idx += 2
     }
-    else if content[idx] == '*' && content[idx+1] == '*'
+    else if len(content[idx:]) > 1 && strings.compare(content[idx:idx+2], "**") == 0
     {
       // - Bold ---
       idx += 2
@@ -195,9 +240,9 @@ write_paragraph :: proc(builder: ^strings.Builder, content: string)
 
 write_code_block :: proc(builder: ^strings.Builder, content: string)
 {
-  strings.write_string(builder, "        <pre><code>\n")
+  strings.write_string(builder, "      <pre><code>\n")
   strings.write_string(builder, content)
-  strings.write_string(builder, "        </code></pre>\n")
+  strings.write_string(builder, "      </code></pre>\n")
 }
 
 hyphenate_string :: proc(str: string, allocator := context.allocator) -> string
