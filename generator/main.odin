@@ -1,4 +1,6 @@
-package main
+package generator
+
+import "base:runtime"
 
 import "core:fmt"
 import "core:slice"
@@ -9,13 +11,10 @@ import "core:path/filepath"
 COPYRIGHT :: "2024-2025"
 
 PATH_TO_INPUT  :: "content/"
-PATH_TO_OUTPUT :: "pages/posts/"
+PATH_TO_OUTPUT :: "dist/posts/"
 
 main :: proc()
 {
-  context.allocator = context.temp_allocator
-  defer free_all(context.temp_allocator)
-
   // - Read template.html ---
   template_data := make([]byte, 4 << 10, context.allocator)
   {
@@ -43,30 +42,26 @@ main :: proc()
     os.exit(1)
   }
 
-  // - Sort posts by date ---
-  {
-    parser: MD_Parser
-    parser.data = {}
-    
-    slice.sort_by(post_files, proc(i, j: os.File_Info) -> bool {
-      return strings.compare(i.name, j.name) == -1
-    })
-  }
-
   file_idx: int
-  for file_info in post_files
+  for post_file in post_files
   {
-    if len(file_info.name) < 4 do continue
-    if strings.compare(file_info.name[len(file_info.name)-3:], ".md") != 0 do continue
+    if len(post_file.name) < 4 do continue
+    if strings.compare(post_file.name[len(post_file.name)-3:], ".md") != 0 do continue
+
+    underscore_pos := strings.index_byte(post_file.name, '_')
+    if underscore_pos < 1 do continue
+
+    post_idx := post_file.name[:underscore_pos]
+    post_name := post_file.name[underscore_pos+1:len(post_file.name)-3]
+
+    context.allocator = context.temp_allocator
+    defer free_all(context.temp_allocator)
 
     output_builder := strings.builder_make(context.allocator)
-    content_entry_name := file_info.name[:len(file_info.name)-3]
-    defer file_idx += 1
 
     // - Read file and write output ---
     {
-      path_to_file := strings.concatenate({PATH_TO_INPUT, file_info.name}) 
-      content_fd, content_open_err := os.open(path_to_file, {.Read})
+      content_fd, content_open_err := os.open(post_file.fullpath, {.Read})
       defer os.close(content_fd)
       if content_open_err != nil
       {
@@ -89,7 +84,6 @@ main :: proc()
       content_title, _ := md_read_element(&content_parser)
       content_caption, _ := md_read_element(&content_parser)
       content_date, _ := md_read_element(&content_parser)
-      content_idx := fmt.tprintf("%i", file_idx)
 
       for idx := 0; idx < len(template_data); idx += 1
       {
@@ -114,7 +108,7 @@ main :: proc()
           case "date": 
             strings.write_string(&output_builder, content_date)
           case "number": 
-            strings.write_string(&output_builder, content_idx)
+            strings.write_string(&output_builder, post_idx)
           case "copyright": 
             strings.write_string(&output_builder, COPYRIGHT)
           case "body":
@@ -145,8 +139,8 @@ main :: proc()
 
     // - Dump output to file ---
     {
-      output_dir_path := strings.concatenate({PATH_TO_OUTPUT, content_entry_name, "/"})
-      os.make_directory("output/")
+      output_dir_path := strings.concatenate({PATH_TO_OUTPUT, post_name, "/"})
+      os.make_directory_all("dist/posts/")
       os.make_directory(output_dir_path)
       
       output_path := strings.concatenate({output_dir_path, "index.html"})

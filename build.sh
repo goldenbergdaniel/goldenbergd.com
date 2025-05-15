@@ -1,11 +1,11 @@
 #!/bin/bash
 
-rm -rf dist
+rm -rf dist/*
 
-if [[ $1 == "clean" ]]; then exit 0; fi;
-
-mkdir dist
+mkdir -p dist
 cp -r pages/* assets dist
+
+./generator.bin
 
 if [[ $1 == "run" ]]; then
   echo "Server running on http://127.0.0.1:8080/"
