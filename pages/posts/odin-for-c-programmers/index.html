@@ -3,6 +3,8 @@
   <head>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="og:title" content="Odin for C Programmers">
+    <meta name="og:description" content="A primer on the Odin programming language for C veterans.">
     <link rel="icon" type="image" href="/assets/daniel_goldenberg.png"/>
     <link rel="stylesheet" href="/assets/main.css"/>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -11,7 +13,7 @@
     <title>Odin for C Programmers</title>
   </head>
   <body>
-    <div id="app">
+    <header>
       <div id="avatar">
         <a href="/"><img src="/assets/daniel_goldenberg.png" alt="daniel goldenberg"></a>
         <h1><a href="/">DANIEL GOLDENBERG</a></h1>
@@ -24,60 +26,54 @@
           <li><a href="/links">links</a></li>
         </ul>
       </nav>
-      <div id="content">
-        <h1>Odin for C Programmers</h1>
-        <h3>A primer on the Odin programming language for C developers.</h3>
-        <h4>03.02.2025</h4>
-        <p>This post is meant to be a rundown of some of the aspects of Odin that may feel alien to a C developer. I will update this list periodically.</p>
-        <pre><code>
-package main
-
-import "core:fmt"
-
-main :: proc()
-{
-  fmt.println("Hellope!")
-}
-        </code></pre>
-        <h2 id="slices-and-strings"><a href="#slices-and-strings">Slices & Strings #</a></h2>
-        <p>A slice in Odin, denoted by <code>[]T</code>, is simply a struct containing a pointer and an <code>int</code> for length. Here's its layout in memory, taken directly from the Odin runtime.</p>
-        <pre><code>
+    </header>
+    <main>
+      <h1>Odin for C Programmers</h1>
+      <h3>A primer on the Odin programming language for C veterans.</h3>
+      <h4>2025.04.14</h4>
+      <p>This post is meant to be a rundown of some of the part of Odin that might feel alien to a C developer. I will update this list periodically.</p>
+      <h2 id="slices-and-strings">Slices and Strings <a href="slices-and-strings">#</a></h2>
+      <p>A slice in Odin, denoted by <code class="inline-code">[]T</code>, is simply a struct containing a pointer and an <code class="inline-code">int</code> for length. Here's its layout in memory, taken directly from the Odin runtime.</p>
+      <pre><code>
 Raw_Slice :: struct
 {
-  data: rawptr,
-  len:  int,
+	data: rawptr,
+	len:  int,
 }
 
 Raw_String :: struct
 {
-  data: [^]u8,
-  len:  int,
+	data: [^]u8,
+	len:  int,
 }
 
 Raw_Cstring :: struct
 {
-  data: [^]u8,
+	data: [^]u8,
 }
-        </code></pre>
-        <h2 id="unions"><a href="#unions">Unions #</a></h2>
-        <pre><code>
+      </code></pre>
+      <h2 id="unions">Unions <a href="unions">#</a></h2>
+      <pre><code>
 My_Union :: union
 {
-  string,
-  int,
-  f32,
+	string,
+	int,
+	f32,
 }
 
 My_Raw_Union :: struct #raw_union
 {
-  str: string,
-  num: int,
-  flt: f32,
+	str: string,
+	num: int,
+	flt: f32,
 }
-        </code></pre>
-        <h2 id="bitsets-and-bitfields"><a href="#bitsets-and-bitfields">Bit Sets & Bit Fields #</a></h2>
-      </div>
-    </div>
-    <script type="module" src="/scripts/main.js"></script>
+      </code></pre>
+      <h2 id="bit-sets-&-bit-fields">Bit Sets & Bit Fields <a href="bit-sets-&-bit-fields">#</a></h2>
+      <p>And there you have it!</p>
+    </main>
+    <footer>
+      © 2024-2025 Daniel Goldenberg
+    </footer>
+    <script type="module" src="/assets/main.js"></script>
   </body>
 </html>

@@ -11,7 +11,7 @@
     <title>Daniel Goldenberg</title>
   </head>
   <body>
-    <div id="app">
+    <header>
       <div id="avatar">
         <a href="/"><img src="/assets/daniel_goldenberg.png" alt="daniel goldenberg"></a>
         <h1><a href="/">DANIEL GOLDENBERG</a></h1>
@@ -20,19 +20,22 @@
         <ul id="navbar-links">
           <li><a href="/">home</a></li>
           <li><a href="/posts">posts</a></li>
-          <li><a href="/projects">projects</a></li>
-          <li><a href="/links" id="current">[links]</a></li>
+          <li><a href="/projects">[projects]</a></li>
+          <li><a href="/links" id="current">links</a></li>
         </ul>
       </nav>
-      <div id="content">
-        <ul id="content-list">
-          <li class="content-entry"><a href="https://github.com/goldenbergdaniel"><span class="entry-name">github.com</span><br>Check out my work</a></li>
-          <li class="content-entry"><a href="https://berylliumgames.itch.io/"><span class="entry-name">itch.io</span><br>Play my games</a></li>
-          <li class="content-entry"><a href="https://youtube.com/@beryldev"><span class="entry-name">youtube.com</span><br>Watch my videos</a></li>
-          <li class="content-entry"><a href="https://x.com/beryldev"><span class="entry-name">x.com</span><br>See what I'm doing</a></li>
-        </ul>
+    </header>
+    <main>
+      <div id="content-list">
+        <entry class="content-entry"><a href="https://github.com/goldenbergdaniel"><span class="entry-name">github.com</span><br>Check out my work</a></entry>
+        <entry class="content-entry"><a href="https://berylliumgames.itch.io/"><span class="entry-name">itch.io</span><br>Play my games</a></entry>
+        <entry class="content-entry"><a href="https://youtube.com/@beryldev"><span class="entry-name">youtube.com</span><br>Watch my videos</a></entry>
+        <entry class="content-entry"><a href="https://x.com/beryldev"><span class="entry-name">x.com</span><br>See what I'm doing</a></entry>
       </div>
-    </div>
-    <script type="module" src="/scripts/main.js"></script>
+    </main>
+    <footer>
+      © 2024-2025 Daniel Goldenberg
+    </footer>
+    <script type="module" src="/assets/main.js"></script>
   </body>
 </html>

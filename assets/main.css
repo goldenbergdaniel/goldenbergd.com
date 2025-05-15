@@ -1,7 +1,7 @@
 :root {
-  --color-bg-1:   #0d0d0e;
-  --color-bg-2:   #151516;
-  --color-fg-1:   #cfcfcf;
+  --color-bg-1:   #101013;
+  --color-bg-2:   #212127;
+  --color-fg-1:   #c3c3c3;
   --color-fg-2:   #a3a3a3;
   --color-accent: #72abcc;
   --font-mono: "Fira Mono", monospace;
@@ -11,7 +11,6 @@
   color-scheme: light dark;
   color: var(--color-fg-1);
   background-color: var(--color-bg-1);
-
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -23,14 +22,14 @@ body {
   display: flex;
   flex-direction: column;
   place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+  /* min-width: 320px; */
+  /* min-height: 100vh; */
 }
 
-#app {
+header {
   max-width: 1280px;
-  margin: 100 auto;
-  padding: 1rem;
+  margin: 0;
+  padding: 1rem 0 0 0;
 }
 
 #avatar {
@@ -39,10 +38,9 @@ body {
   justify-content: center;
   align-items: center;
   margin: 0;
-  /* border: 1px dashed red; */
 }
 #avatar img {
-  max-width: 70px;
+  max-width: 60px;
   border-radius: 50%;
 }
 #avatar h1 {
@@ -63,8 +61,8 @@ body {
   display: flex;
   padding: 0;
   margin-top: 20px;
-  margin-bottom: 40px;
   justify-content: center;
+  list-style: none;
 }
 #navbar-links li {
   padding: 0 10px;
@@ -73,29 +71,27 @@ body {
   color: var(--color-accent);
 }
 
-#content {
+main {
   text-align: left;
-  /* border: 1px solid blue; */
+  margin: 0;
+  padding: 0;
 }
-#content h1 {
+main h1 {
   font-family: var(--font-sans);
   color: var(--color-accent);
-  font-size: 2rem;
+  font-size: 2.25rem;
   line-height: 2rem;
 }
-#content h2 {
+main h2 {
   font-family: var(--font-sans);
   color: var(--color-accent);
-  font-size: 1.5rem;
-  line-height: 2rem;
+  font-size: 1.75rem;
+  line-height: 3rem;
 }
-#content h2 a {
-  font-family: var(--font-sans);
-  color: var(--color-accent);
-  font-size: 1.5rem;
-  line-height: 2rem;
+main h2 a {
+  color: var(--color-fg-2);
 }
-#content h3 {
+main h3 {
   line-height: 1rem;
   font-family: var(--font-sans);
   color: var(--color-fg-1);
@@ -103,23 +99,22 @@ body {
   font-size: 1.3rem;
   line-height: 2rem;
 }
-#content h4 {
+main h4 {
   color: var(--color-fg-2);
   font-weight: 400;
   font-size: 0.9rem;
   line-height: 1rem;
 }
-#content p {
+main p {
   font-family: var(--font-sans);
   font-weight: 400;
   font-size: 1.1rem;
-  line-height: 2rem;
+  line-height: 1.75rem;
   max-width: 800px;
 }
-
-#content pre {
+main pre {
   font-family: var(--font-mono);
-  font-size: 1rem;
+  font-size: 0.9rem;
   line-height: normal;
   background-color: var(--color-bg-2);
   padding: 0 10px;
@@ -127,10 +122,22 @@ body {
 }
 
 #content-list {
-  text-align: left;
   display: flex;
   flex-direction: column;
-  /* border: 1px solid red; */
+  padding: 20px;
+}
+
+.content-entry {
+  font-size: 1rem;
+  margin-bottom: 15px;
+  text-align: left;
+}
+.content-entry a {
+  text-decoration: none;
+  color: var(--color-fg-1);
+}
+.content-entry a:hover {
+  text-decoration: underline;
 }
 
 .entry-name {
@@ -141,22 +148,6 @@ body {
   color: var(--color-fg-2);
 }
 
-.content-entry {
-  font-size: 1rem;
-  margin-bottom: 10px;
-}
-.content-entry a {
-  text-decoration: none;
-  color: var(--color-fg-1);
-}
-.content-entry a:hover {
-  text-decoration: underline;
-}
-
-ul {
-  list-style: none;
-}
-
 a {
   color: var(--color-fg-2);
   text-decoration: none;
@@ -165,27 +156,30 @@ a:hover, a:visited, a:active {
   text-decoration: underline;
 }
 
-/* .logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
+.inline-code {
+  font-family: var(--font-mono);
+  background-color: var(--color-bg-2);
+  padding: 2px;
 }
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-} */
 
-/* button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.2s;
+footer {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--color-fg-2);
+  margin: 1em 0em;
+  text-align: center;
 }
-button:hover {
-  border-color: var(--color-fg-1);
+
+/* ::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-bg-1);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-fg-2);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-accent);
 } */

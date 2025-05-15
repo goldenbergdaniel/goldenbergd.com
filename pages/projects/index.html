@@ -11,7 +11,7 @@
     <title>Daniel Goldenberg</title>
   </head>
   <body>
-    <div id="app">
+    <header>
       <div id="avatar">
         <a href="/"><img src="/assets/daniel_goldenberg.png" alt="daniel goldenberg"></a>
         <h1><a href="/">DANIEL GOLDENBERG</a></h1>
@@ -24,13 +24,16 @@
           <li><a href="/links">links</a></li>
         </ul>
       </nav>
-      <div id="content">
-        <ul id="content-list">
-          <li class="content-entry"><a href="https://github.com/GoldenbergDaniel/UndeadWestGame"><span class="entry-name">Undead West</span><br>Play as a cowboy fighting the undead of the west</a></li>
-          <li class="content-entry"><a href="https://github.com/GoldenbergDaniel/ArchSim"><span class="entry-name">RISC Box</span><br>Simulate RISC-V from the browser or terminal</a></li>
-        </ul>
+    </header>
+    <main>
+      <div id="content-list">
+        <entry class="content-entry"><a href="https://github.com/GoldenbergDaniel/UndeadWestGame"><span class="entry-name">Undead West</span><br>Play as a cowboy fighting the undead of the west</a></entry>
+        <entry class="content-entry"><a href="https://github.com/GoldenbergDaniel/ArchSim"><span class="entry-name">RISC Box</span><br>Simulate RISC-V from the browser or terminal</a></entry>
       </div>
-    </div>
-    <script type="module" src="/scripts/main.js"></script>
+    </main>
+    <footer>
+      © 2024-2025 Daniel Goldenberg
+    </footer>
+    <script type="module" src="/assets/main.js"></script>
   </body>
 </html>
