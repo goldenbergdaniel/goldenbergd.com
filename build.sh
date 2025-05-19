@@ -1,11 +1,9 @@
 #!/bin/bash
 
-rm -rf dist/*
-
-mkdir -p dist
-cp -r pages/* assets dist
-
 if [[ $1 != "prod" ]]; then 
+  rm -rf dist/*
+  mkdir -p dist
+  cp -r pages/* assets dist
   ./generator.bin
 fi;
 
