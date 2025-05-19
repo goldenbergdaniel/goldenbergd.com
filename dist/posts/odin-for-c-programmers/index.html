@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="og:title" content="Odin for C Programmers">
+    <meta name="og:description" content="A primer on the Odin programming language for C veterans.">
+    <link rel="icon" type="image" href="/assets/daniel_goldenberg.png"/>
+    <link rel="stylesheet" href="/assets/main.css"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Mono:wght@400;500;700&family=Fira+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <title>Odin for C Programmers</title>
+  </head>
+  <body>
+    <header>
+      <div id="avatar">
+        <a href="/"><img src="/assets/daniel_goldenberg.png" alt="daniel goldenberg"></a>
+        <h1><a href="/">DANIEL GOLDENBERG</a></h1>
+      </div>
+      <nav>
+        <ul id="navbar-links">
+          <li><a href="/">home</a></li>
+          <li><a href="/posts" id="current">posts[1]</a></li>
+          <li><a href="/projects">projects</a></li>
+          <li><a href="/links">links</a></li>
+        </ul>
+      </nav>
+    </header>
+    <main>
+      <h1>Odin for C Programmers</h1>
+      <h3>A primer on the Odin programming language for C veterans.</h3>
+      <h4>2025.05.16</h4>
+      <p>This blog post is a rundown of some of the things a programmer familiar with C may find surprising about Odin.</p>
+      <h2 id="arrays-and-slices">Arrays and Slices <a href="#arrays-and-slices">#</a></h2>
+      <p>Lets start with arrays, which in Odin are of the form <code class="inline-code">[N]T</code>. Just like in C, an array in Odin is a contiguous list of elements of the same type. Where Odin's array differs from C is that it does not degrade to a pointer when assigned to one. This can be observed in the following code snippets. Note that in Odin, we would generally pass an array by slice rather than by pointer. </p>
+      <pre><code>
+// - C ---
+int array[8];
+int *ptr = array; // Valid
+int *ptr = &array; // Also valid
+      </code></pre>
+      <pre><code>
+// - Odin --
+array: [8]int
+ptr_1: ^int = array // Error
+ptr_2: ^[8]int = &array // Valid
+      </code></pre>
+      <p>A slice in Odin, of the form <code class="inline-code">[]T</code>, is simply a struct which contains a pointer to the first element and an integer for the number of elements it points to. It's layout in memory can be seen in the snippets below, taken directly from the <a href="https://github.com/odin-lang/Odin/blob/master/base/runtime/core.odin#L395">Odin runtime</a>.</p>
+      <pre><code>
+Raw_Slice :: struct
+{
+	data: rawptr,
+	len:  int,
+}
+      </code></pre>
+      <h2 id="strings">Strings <a href="#strings">#</a></h2>
+      <pre><code>
+Raw_String :: struct
+{
+	data: [^]u8, // ok?
+	len:  int,
+}
+
+Raw_Cstring :: struct
+{
+	data: [^]u8,
+}
+      </code></pre>
+      <h2 id="unions">Unions <a href="#unions">#</a></h2>
+      <pre><code>
+My_Union :: union
+{
+	string,
+	int,
+	f32,
+}
+
+My_Raw_Union :: struct #raw_union
+{
+	str: string,
+	num: int,
+	flt: f32,
+}
+      </code></pre>
+      <h2 id="bit-sets-and-bit-fields">Bit Sets and Bit Fields <a href="#bit-sets-and-bit-fields">#</a></h2>
+      <h2 id="inline-assembly">Inline Assembly <a href="#inline-assembly">#</a></h2>
+    </main>
+    <footer>
+      © 2024-2025 Daniel Goldenberg
+    </footer>
+    <script type="module" src="/assets/main.js"></script>
+  </body>
+</html>

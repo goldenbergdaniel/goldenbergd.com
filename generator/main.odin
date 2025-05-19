@@ -1,11 +1,8 @@
 package generator
 
-import "base:runtime"
-
 import "core:fmt"
-import "core:slice"
+import vmem "core:mem/virtual"
 import "core:strings"
-import "core:path/filepath"
 import os "core:os/os2"
 import toml "core:encoding/ini"
 
@@ -18,13 +15,21 @@ Config :: struct
 
 main :: proc()
 {
+  arena: vmem.Arena
+  _ = vmem.arena_init_static(&arena)
+  context.allocator = vmem.arena_allocator(&arena)
+
+  temp_arena: vmem.Arena
+  _ = vmem.arena_init_static(&temp_arena)
+  context.temp_allocator = vmem.arena_allocator(&temp_arena)
+
   // - Read config file ---
   config: Config
   {
     cfg, err, ok := toml.load_map_from_path("config.toml", context.allocator)
     if err != nil || !ok
     {
-      fmt.println("Error reading generator.toml!")
+      fmt.println("Error reading config.toml!")
       os.exit(1)
     }
 
@@ -85,7 +90,7 @@ main :: proc()
       if content_open_err != nil
       {
         fmt.eprintln("Error opening content.md!", content_open_err)
-        os.exit(1)
+        // os.exit(1)
       }
 
       content_data := make([]byte, 8 << 10)
@@ -94,7 +99,7 @@ main :: proc()
       if content_open_err != nil
       {
         fmt.eprintln("Error reading content.md!", posts_rd_err)
-        os.exit(1)
+        // os.exit(1)
       }
 
       content_parser: MD_Parser
