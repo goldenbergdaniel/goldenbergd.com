@@ -1,0 +1,4 @@
+[general]
+content_path = "content/"
+output_path = "dist/"
+copyright = "2024-2025"
