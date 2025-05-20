@@ -4,6 +4,7 @@
   rm -rf dist/*
   mkdir -p dist
   cp -r pages/* assets dist
+  ls /lib64
   ./generator-compat.bin
 # fi;
 
