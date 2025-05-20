@@ -1,12 +1,9 @@
 #!/bin/bash
 
-# if [[ $1 != "prod" ]]; then 
-  rm -rf dist/*
-  mkdir -p dist
-  cp -r pages/* assets dist
-  ls /lib64
-  ./generator-compat.bin
-# fi;
+rm -rf dist/*
+mkdir -p dist
+cp -r pages/* assets dist
+./generator.bin
 
 if [[ $1 == "run" ]]; then
   echo "Server running on http://127.0.0.1:8080/"
