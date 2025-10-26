@@ -1,8 +1,11 @@
 #!/bin/bash
 
+set -e
+
 rm -rf dist/*
 mkdir -p dist
 cp -r pages/* assets dist
+
 ./generator.bin
 
 if [[ $1 == "run" ]]; then

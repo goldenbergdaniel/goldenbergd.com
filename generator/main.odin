@@ -90,7 +90,7 @@ main :: proc()
       if content_open_err != nil
       {
         fmt.eprintln("Error opening content.md!", content_open_err)
-        // os.exit(1)
+        os.exit(1)
       }
 
       content_data := make([]byte, 8 << 10)
@@ -99,7 +99,7 @@ main :: proc()
       if content_open_err != nil
       {
         fmt.eprintln("Error reading content.md!", posts_rd_err)
-        // os.exit(1)
+        os.exit(1)
       }
 
       content_parser: MD_Parser
